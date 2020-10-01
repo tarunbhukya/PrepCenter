@@ -71,7 +71,7 @@ const QuestionBankList = (props) => {
             {
                 data.questionBanks.map((record) => {
                     return (
-                        <Grid item xs={3}>
+                        <Grid key={record.id} item xs={3}>
                             <ListItem 
                                 key={record.id}
                                 item={record}

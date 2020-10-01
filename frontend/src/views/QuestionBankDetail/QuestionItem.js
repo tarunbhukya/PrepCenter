@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {Paper, Typography} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -19,53 +19,55 @@ const useStyles = makeStyles({
     }
 });
 
-const QuestionItem = (props) => {
-
+const QuestionItem = ({question, onSetChoice, index}) => {
     const classes = useStyles();
 
+    return useMemo((props) => {
+
     const handleChoice = (index, value) => {
-        let questionAnswers = Object.assign([], props.questionAnswers);
-        const newState = [...questionAnswers]
-        newState[index] = {...newState[index], choice: value}
-        props.setQuestionAnswers(newState)
+        onSetChoice(index, value)
     }
 
+    console.log(question)
 
     return (
         <Paper elevation={0} className={`${classes.paper}`}>
             <p><b>Question</b></p>
-            <p>{props.question.title}</p>
+            <p>{question.title}</p>
             <br /> <br />
             <Typography 
-                onClick={() => handleChoice(props.index, 'a')} 
+                onClick={() => handleChoice(index, 'a')} 
                 variant="subtitle1" 
                 gutterBottom 
-                className={`${classes.answerBox} ${ props.questionAnswers[props.index].choice == "a" ? classes.selectedChoice : '' }`}>
-                <b>A :</b>  { props.question.choices.a }
+                className={`${classes.answerBox} ${ question.choice === "a" ? classes.selectedChoice : '' }`}>
+                <b>A :</b>  { question.choices.a }
             </Typography>
             <Typography 
-                onClick={() => handleChoice(props.index, 'b')} 
+                onClick={() => handleChoice(index, 'b')} 
                 variant="subtitle1" 
                 gutterBottom 
-                className={`${classes.answerBox} ${ props.questionAnswers[props.index].choice == "b" ? classes.selectedChoice : '' }`}>
-                <b>B :</b>  { props.question.choices.b }
+                className={`${classes.answerBox} ${ question.choice === "b" ? classes.selectedChoice : '' }`}>
+                <b>B :</b>  { question.choices.b }
             </Typography>
             <Typography 
-                onClick={() => handleChoice(props.index, 'c')} 
+                onClick={() => handleChoice(index, 'c')} 
                 variant="subtitle1" 
                 gutterBottom 
-                className={`${classes.answerBox} ${ props.questionAnswers[props.index].choice == "c" ? classes.selectedChoice : '' }`}>
-                <b>C :</b>  { props.question.choices.c }
+                className={`${classes.answerBox} ${ question.choice === "c" ? classes.selectedChoice : '' }`}>
+                <b>C :</b>  { question.choices.c }
             </Typography>
             <Typography 
-                onClick={() => handleChoice(props.index, 'd')} 
+                onClick={() => handleChoice(index, 'd')} 
                 variant="subtitle1" 
                 gutterBottom 
-                className={`${classes.answerBox} ${ props.questionAnswers[props.index].choice == "d" ? classes.selectedChoice : '' }`}>
-                <b>D :</b>  { props.question.choices.d }
+                className={`${classes.answerBox} ${ question.choice === "d" ? classes.selectedChoice : '' }`}>
+                <b>D :</b>  { question.choices.d }
             </Typography>
         </Paper>
-    )
+        )
+
+    }, [onSetChoice, index, question.choice, useStyles ])
+    
 }
 
 export default QuestionItem;

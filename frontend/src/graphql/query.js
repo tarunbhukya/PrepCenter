@@ -16,8 +16,6 @@ export const GET_QUESTIONS = gql`
             id
             title
             description
-            questions
-            answers
             examType
             user {
                 username

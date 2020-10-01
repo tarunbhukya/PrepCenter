@@ -22,6 +22,13 @@ const useStyles = makeStyles({
     pos: {
       marginBottom: 12,
     },
+    cardContent: {
+      minHeight: 200
+    },
+    cardActionsContainer: {
+      background: '#fcfcfc',
+      borderTop: 'solid 1px rgba(0, 0, 0, 0.12)'
+    }
   });
 
 const ListItem = (props) => {
@@ -29,7 +36,7 @@ const ListItem = (props) => {
 
     return(
         <Card className={classes.root} variant="outlined">
-            <CardContent>
+            <CardContent className={`${classes.cardContent}`}>
                
                 {
                     props.item ?
@@ -44,7 +51,7 @@ const ListItem = (props) => {
                 
                
             </CardContent>
-            <CardActions>
+            <CardActions className={`${classes.cardActionsContainer}`}>
                 <Button size="small" onClick={props.itemAction}>
                     { props.itemActionText }
                 </Button>
