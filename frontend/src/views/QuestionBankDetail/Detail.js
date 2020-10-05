@@ -37,6 +37,7 @@ const Detail = (props) => {
     const [ showScore, setShowScore ] = useState(false);
     const [ showDelete, setShowDelete ] = useState(false);
     const [ score, setScore ] = useState(0);
+    const [deleteQuestionBankMutation] = useMutation(DELETE_QUESTION_BANK);
 
 
     const selectChoice = useCallback( (questionIndex, choice) => {
@@ -64,7 +65,19 @@ const Detail = (props) => {
         setShowScore(true)
     }
 
-    const deleteQuestionBank = () => {
+    const deleteQuestionBank = async() => {
+
+        const {data} = await deleteQuestionBankMutation({
+            variables: {
+                id: props.record.id,
+              }
+        });
+        console.log(data)
+        if(data && data.questionBankDelete.message !== "") {          
+            window.location.assign('/questionbanks');
+        }else {
+            alert("Some Error")
+        }
         setShowDelete(false);
     }
 

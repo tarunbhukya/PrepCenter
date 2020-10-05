@@ -45,3 +45,20 @@ export const CREATE_QUESTIN_BANK = gql`
     }
 `;
 
+export const DELETE_QUESTION_BANK = gql`
+    mutation DeleteQuestionBank(
+        $id: ID
+    ) {
+        questionBankDelete(
+            input: {
+                id: $id
+            }
+        ) {
+            message
+            errors {
+                field
+                messages
+            }
+        }
+    }
+`;
